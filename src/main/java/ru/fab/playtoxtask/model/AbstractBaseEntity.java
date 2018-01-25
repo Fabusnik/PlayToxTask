@@ -14,6 +14,9 @@ public abstract class AbstractBaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Integer id;
 
+    public AbstractBaseEntity() {
+    }
+
     public AbstractBaseEntity(Integer id) {
         this.id = id;
     }
