@@ -12,9 +12,8 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class UserRepositoryImpl implements UserRepository{
     private static final Logger log = getLogger(UserRepositoryImpl.class);
 
-
-//    @Autowired
-//    private CrudUserRepository repository;
+    @Autowired
+    private CrudUserRepository crudUserRepository;
 
     public User get(Integer id){
         log.info("get user by id {}",id);
