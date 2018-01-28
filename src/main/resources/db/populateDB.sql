@@ -1,6 +1,5 @@
 use playtox;
 
-
 insert into users (name, password) values
 ('Admin', 'admin'),
 ('User', 'user');

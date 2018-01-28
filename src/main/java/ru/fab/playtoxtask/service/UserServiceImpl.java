@@ -1,41 +1,48 @@
 package ru.fab.playtoxtask.service;
 
+import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.fab.playtoxtask.model.User;
 import ru.fab.playtoxtask.repository.UserRepository;
+import ru.fab.playtoxtask.repository.datajpa.CrudUserRepository;
 
+import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class UserServiceImpl implements UserService {
 
 
-    @Autowired
-    private UserRepository repository;
+    private final CrudUserRepository repository;
 
-    @Override
-    public User get(Integer id) {
-        return null;
+    @Inject
+    public UserServiceImpl(CrudUserRepository repository) {
+        this.repository = repository;
     }
 
-    @Override
+    public User get(Integer id) {
+        return repository.findById(id).orElse(null);
+    }
+
+
     public void delete(Integer id) {
 
     }
 
-    @Override
+
     public List<User> getAll() {
         return null;
     }
 
-    @Override
+
     public User save(User user) {
         return null;
     }
 
-    @Override
+
     public void update(User user) {
 
     }

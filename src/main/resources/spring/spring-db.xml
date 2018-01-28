@@ -14,4 +14,33 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
 
+    <!--<jdbc:initialize-database data-source="dataSource" enabled="${database.init}">-->
+        <!--<jdbc:script location="classpath:db/initDb.sql"/>-->
+        <!--<jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql"/>-->
+    <!--</jdbc:initialize-database>-->
+
+    <context:property-placeholder location="classpath:db/mysql.properties" system-properties-mode="OVERRIDE"/>
+
+    <tx:annotation-driven/>
+
+    <bean id="dataSource"
+          class="org.apache.tomcat.jdbc.pool.DataSource"
+          p:driverClassName="${driverClassName}"
+          p:url="${database.url}"
+          p:username="${database.username}"
+          p:password="${database.password}"/>
+
+
+    <beans profile="datajpa">
+        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+              p:dataSource-ref="dataSource"
+              p:packagesToScan="ru.fab.**.model">
+        </bean>
+    </beans>
+
+    <beans profile="datajpa">
+        <context:component-scan base-package="ru.fab.**.repository.datajpa"/>
+        <jpa:repositories base-package="ru.fab.**.repository.datajpa"/>
+    </beans>
+
 </beans>

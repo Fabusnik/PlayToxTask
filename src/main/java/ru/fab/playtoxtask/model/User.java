@@ -1,17 +1,27 @@
 package ru.fab.playtoxtask.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "name_UNIQUE")})
 public class User extends AbstractBaseEntity {
 
-    @Column(name = "name")
+    @NotEmpty
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "password")
+    @NotEmpty
+    @Column(name = "password", nullable = false)
+    @Length(min = 5)
     private String password;
+
+    @Column(name = "registered", columnDefinition = "timestamp default now()")
+    private LocalDateTime registered;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -19,9 +29,7 @@ public class User extends AbstractBaseEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @CollectionTable(name = "purchase", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "id")
-    @ElementCollection(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     private Set<Purchase> purchases;
 
     public User() {
@@ -49,6 +57,14 @@ public class User extends AbstractBaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public LocalDateTime getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(LocalDateTime registered) {
+        this.registered = registered;
     }
 
     public Set<Role> getRoles() {

@@ -17,7 +17,7 @@ public class Purchase extends AbstractBaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "good_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Goods goods;

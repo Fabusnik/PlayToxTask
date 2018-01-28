@@ -1,19 +1,20 @@
-package ru.fab.playtoxtask.repository;
+package ru.fab.playtoxtask.repository.datajpa;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.fab.playtoxtask.model.User;
+import ru.fab.playtoxtask.repository.UserRepository;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
 
-@Repository
-public class UserRepositoryImpl implements UserRepository{
-    private static final Logger log = getLogger(UserRepositoryImpl.class);
+//@Repository
+public class JpaUserRepositoryImpl implements UserRepository {
+    private static final Logger log = getLogger(JpaUserRepositoryImpl.class);
 
-    @Autowired
-    private CrudUserRepository crudUserRepository;
+//    @Autowired
+    CrudUserRepository repository;
 
     public User get(Integer id){
         log.info("get user by id {}",id);
